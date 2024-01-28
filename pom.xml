@@ -45,11 +45,6 @@
             <scope>system</scope>
             <systemPath>/home/abdo/Documents/tools/developement/java-jars/JADE-bin-4.6.0/jade/lib/jade.jar</systemPath>
         </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-math3</artifactId>
-            <version>3.6.1</version> <!-- Use the latest version available -->
-        </dependency>
         <!-- https://mvnrepository.com/artifact/nz.ac.waikato.cms.weka/weka-stable -->
         <dependency>
             <groupId>nz.ac.waikato.cms.weka</groupId>
@@ -81,7 +76,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.ilisismarthomesma/com.example.ilisismarthomesma.HelloApplication
+                            <mainClass>com.example.ilisismarthomesma/ma.ilisi.smarthome.HelloApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

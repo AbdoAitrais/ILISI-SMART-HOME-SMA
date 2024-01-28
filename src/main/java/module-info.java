@@ -1,11 +1,12 @@
-module com.example.ilisismarthomesma {
+module ma.ilisi.smarthome {
     requires javafx.controls;
     requires javafx.fxml;
-    requires commons.math3;
     requires weka.stable;
     requires jade;
 
 
-    opens com.example.ilisismarthomesma to javafx.fxml;
-    exports com.example.ilisismarthomesma;
+    opens ma.ilisi.smarthome to javafx.fxml;
+    exports ma.ilisi.smarthome;
+    exports ma.ilisi.smarthome.platform3.containers;
+    exports ma.ilisi.smarthome.platform3.agents;
 }

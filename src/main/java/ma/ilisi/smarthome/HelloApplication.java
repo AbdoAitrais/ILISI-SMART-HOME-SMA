@@ -1,4 +1,4 @@
-package com.example.ilisismarthomesma;
+package ma.ilisi.smarthome;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

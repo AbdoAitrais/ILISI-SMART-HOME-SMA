@@ -1,4 +1,4 @@
-package com.example.ilisismarthomesma.platform3;
+package ma.ilisi.smarthome.models;
 
 import weka.classifiers.functions.LinearRegression;
 import weka.core.DenseInstance;

@@ -1,4 +1,4 @@
-package com.example.ilisismarthomesma;
+package ma.ilisi.smarthome;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
