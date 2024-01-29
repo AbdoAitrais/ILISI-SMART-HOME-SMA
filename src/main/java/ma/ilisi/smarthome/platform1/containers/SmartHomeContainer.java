@@ -52,7 +52,7 @@ public class SmartHomeContainer extends Application {
         try {
             // Create agents and perform other actions with the agentContainer
             AgentController agentController= agentContainer.createNewAgent(
-                    "smart_home_mehdi","ma.ilisi.smarthome.platform1.agents.SmartHomeAgent", new Object[]{this}
+                    "smart_home","ma.ilisi.smarthome.platform1.agents.SmartHomeAgent", new Object[]{this}
             );
             agentController.start();
         } catch (Exception e) {

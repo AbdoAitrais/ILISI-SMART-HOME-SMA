@@ -12,6 +12,7 @@ import java.io.File;
 public class AirQualityPredictionModel {
 
     private Instances dataset;
+    private Instances nonNormalizedDataSet;
     private NaiveBayes model;
 
     public AirQualityPredictionModel() throws Exception {
@@ -43,9 +44,9 @@ public class AirQualityPredictionModel {
     private void prepareDataSet() throws Exception {
         ReplaceMissingValues replaceFilter = new ReplaceMissingValues();
         replaceFilter.setInputFormat(dataset);
-        dataset = Filter.useFilter(dataset, replaceFilter);
+        nonNormalizedDataSet = Filter.useFilter(dataset, replaceFilter);
         Normalize normalizeFilter = new Normalize();
-        normalizeFilter.setInputFormat(dataset);
+        normalizeFilter.setInputFormat(nonNormalizedDataSet);
         dataset = Filter.useFilter(dataset, normalizeFilter);
     }
 
@@ -77,22 +78,24 @@ public class AirQualityPredictionModel {
         newInstance.setValue(dataset.attribute("Toluene"), newToluene);
         newInstance.setValue(dataset.attribute("Xylene"), newXylene);
 
-        // Créer un objet Instances avec la nouvelle instance
-        Instances singleInstanceDataset = new Instances(dataset, 0);
-        singleInstanceDataset.add(newInstance);
+
+        nonNormalizedDataSet.add(newInstance);
 
         // Appliquer la normalisation à l'objet Instances
         Normalize normalizeFilter = new Normalize();
-        normalizeFilter.setInputFormat(singleInstanceDataset);
-        singleInstanceDataset = Filter.useFilter(singleInstanceDataset, normalizeFilter);
+        normalizeFilter.setInputFormat(nonNormalizedDataSet);
+        var tempDataSet = Filter.useFilter(nonNormalizedDataSet, normalizeFilter);
+        nonNormalizedDataSet.remove(nonNormalizedDataSet.numInstances() - 1);
+        var instance = tempDataSet.lastInstance();
+
 
         // Classer l'instance normalisée
-        double predictedClassIndex = model.classifyInstance(singleInstanceDataset.firstInstance());
+        double predictedClassIndex = model.classifyInstance(instance);
 
         // Obtenir l'attribut de classe
         Attribute classAttribute = dataset.classAttribute();
 /*
-*       newInstance.setDataset(dataset);
+*    newInstance.setDataset(dataset);
 
         double predictedClassIndex = model.classifyInstance(newInstance);
 
@@ -110,7 +113,7 @@ public class AirQualityPredictionModel {
         try {
 
             AirQualityPredictionModel predictor = new AirQualityPredictionModel();
-            String prediction = predictor.predict(1553.45, 5866.54, 233.3, 2133.6, 1366.09, 142.27, 066.41, 855.19, 29555.38, 1444.28, 5444.64, 0444.92);
+            String prediction = predictor.predict(2.0, 30.0, 12.0, 45, 0.2, 23.0, 10.0, 23.0, 30.0, 12.0, 10.0, 10.0);
             System.out.println("Predicted Class: " + prediction);
         } catch (Exception e) {
             e.printStackTrace();

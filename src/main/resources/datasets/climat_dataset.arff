@@ -1,0 +1,21 @@
+@relation weather_data
+
+@attribute temperature numeric
+@attribute humidity numeric
+@attribute wind {low, medium, high}
+@attribute outlook {sunny, overcast, rainy}
+@attribute play {yes, no}
+
+@data
+22, 60, low, sunny, yes
+18, 75, medium, overcast, no
+25, 55, high, rainy, yes
+20, 70, medium, overcast, yes
+17, 80, high, rainy, no
+23, 62, low, sunny, yes
+19, 72, medium, overcast, no
+24, 58, low, sunny, yes
+16, 85, high, rainy, no
+21, 65, medium, overcast, yes
+22, 67, low, sunny, yes
+18, 68, high, rainy, no

@@ -67,33 +67,27 @@ public class AirQualityContainer extends Application {
 
         Button sendButton = new Button("Send");
 
+        HBox buttonBox = new HBox(sendButton);
+
         ListView<String> listView = new ListView<>(observableList);
 
-        HBox inputBox = new HBox();
-        inputBox.setSpacing(10);
-        inputBox.setPadding(new Insets(10));
-        VBox vbox = new VBox();
-        vbox.setSpacing(10);
-        vbox.setPadding(new Insets(10));
-        inputBox.getChildren().addAll(
-                pm25Label, pm25Field,
-                pm10Label, pm10Field,
-                noLabel, noField,
-                no2Label, no2Field,
-                noxLabel, noxField,
-                nh3Label, nh3Field,
-                coLabel, coField,
-                so2Label, so2Field,
-                o3Label, o3Field,
-                benzeneLabel, benzeneField,
-                tolueneLabel, tolueneField,
-                xyleneLabel, xyleneField,
-                sendButton
+        HBox inputBox = new HBox(10,
+                new VBox(pm25Label, pm25Field),
+                new VBox(pm10Label, pm10Field),
+                new VBox(noLabel, noField),
+                new VBox(no2Label, no2Field),
+                new VBox(noxLabel, noxField),
+                new VBox(nh3Label, nh3Field),
+                new VBox(coLabel, coField),
+                new VBox(so2Label, so2Field),
+                new VBox(o3Label, o3Field),
+                new VBox(benzeneLabel, benzeneField),
+                new VBox(tolueneLabel, tolueneField),
+                new VBox(xyleneLabel, xyleneField)
         );
-        vbox.getChildren().add(listView);
 
-        borderPane.setTop(inputBox);
-        borderPane.setCenter(vbox);
+        VBox vbox = new VBox(10, inputBox, buttonBox, listView);
+        vbox.setPadding(new Insets(10));
 
         sendButton.setOnAction(evt -> {
             double pm25 = Double.parseDouble(pm25Field.getText());
@@ -108,8 +102,6 @@ public class AirQualityContainer extends Application {
             double benzene = Double.parseDouble(benzeneField.getText());
             double toluene = Double.parseDouble(tolueneField.getText());
             double xylene = Double.parseDouble(xyleneField.getText());
-
-            // You can use the sensor data in your AirQualitySensorAgent logic
 
             GuiEvent event = new GuiEvent(evt, 1);
             event.addParameter(pm25);
@@ -126,6 +118,9 @@ public class AirQualityContainer extends Application {
             event.addParameter(xylene);
             airQualitySensorAgent.onGuiEvent(event);
         });
+
+        borderPane.setTop(inputBox);
+        borderPane.setCenter(vbox);
 
         Scene scene = new Scene(borderPane, 800, 600);
         stage.setScene(scene);
