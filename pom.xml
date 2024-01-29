@@ -43,14 +43,15 @@
             <artifactId>jade</artifactId>
             <version>master-m4.5.3-g7862053-6</version>
             <scope>system</scope>
-            <systemPath>/home/abdo/Documents/tools/developement/java-jars/JADE-bin-4.6.0/jade/lib/jade.jar</systemPath>
+            <systemPath>C:/Users/ElMehdi/Documents/smaProject/ILISI-SMART-HOME-SMA/jade.jar</systemPath>
         </dependency>
         <!-- https://mvnrepository.com/artifact/nz.ac.waikato.cms.weka/weka-stable -->
         <dependency>
             <groupId>nz.ac.waikato.cms.weka</groupId>
             <artifactId>weka-stable</artifactId>
-            <version>3.8.0</version>
+            <version>3.8.6</version>
         </dependency>
+
 
 
 
