@@ -10,8 +10,10 @@ import jade.domain.FIPAException;
 import jade.gui.GuiAgent;
 import jade.gui.GuiEvent;
 import jade.lang.acl.ACLMessage;
+import javafx.stage.Stage;
 import ma.ilisi.smarthome.models.AirQualityPredictionModel;
 import ma.ilisi.smarthome.models.ShutterPredictionModel;
+import ma.ilisi.smarthome.platform1.containers.CameraSecurityContainer;
 import ma.ilisi.smarthome.platform1.containers.SmartHomeContainer;
 
 import java.util.Date;
@@ -20,7 +22,7 @@ public class SmartHomeAgent extends GuiAgent {
     private ShutterPredictionModel shutterPredictionModel;
     private AirQualityPredictionModel airQualityPredictionModel;
     private SmartHomeContainer smartHomeContainer;
-
+    private CameraSecurityContainer cameraSecurityContainer;
     protected void setup() {
         smartHomeContainer = (SmartHomeContainer) getArguments()[0];
         smartHomeContainer.smartHomeAgent = this;
@@ -87,6 +89,12 @@ public class SmartHomeAgent extends GuiAgent {
                             System.out.println(decision);
                             smartHomeContainer.showMessage("The response is " + decision);
                         } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    case "CameraSecurity":
+                        try {
+                            cameraSecurityContainer.start(new Stage());
+                        }catch (Exception e){
                             e.printStackTrace();
                         }
                         break;

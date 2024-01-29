@@ -7,12 +7,9 @@ import jade.wrapper.AgentContainer;
 import jade.wrapper.AgentController;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,13 +24,12 @@ import java.io.File;
 
 public class CameraSecurityContainer extends Application {
     public CameraSecurityAgent cameraSecurityAgent;
-    protected ObservableList<String> observableList;
     private ImageView imageView; // Déclarer ImageView ici
-    private AgentContainer agentContainer; // Déclarez la variable ici
 
     public static void main(String[] args) {
         launch(args);
     }
+
     @Override
     public void start(Stage stage) throws Exception {
         startContainer();
@@ -41,28 +37,23 @@ public class CameraSecurityContainer extends Application {
         BorderPane BP = new BorderPane();
         Scene scene = new Scene(BP, 400, 300);
 
-        observableList = FXCollections.observableArrayList();
-        ListView<String> listView = new ListView<>(observableList);
-
         // Champ pour insérer le chemin de l'image
         TextField imagePathField = new TextField();
         imagePathField.setPromptText("Chemin de l'image");
 
         // Bouton pour parcourir et sélectionner une image
         Button browseButton = new Button("Parcourir...");
-        browseButton.setOnAction(e -> browseImage(stage, imagePathField, imageView)); // Passer imageView ici
+        browseButton.setOnAction(e -> browseImage(stage, imagePathField, imageView));
 
         // ImageView pour afficher l'image sélectionnée
-        ImageView imageView = new ImageView();
+        imageView = new ImageView();
         imageView.setFitWidth(200); // Ajustez la largeur selon vos besoins
         imageView.setFitHeight(200); // Ajustez la hauteur selon vos besoins
 
         // Bouton pour déclencher la détection d'image
         Button detectButton = new Button("Détecter");
         detectButton.setOnAction(e -> {
-            // Ajoutez ici la logique pour déclencher la détection d'image
             String imagePath = imagePathField.getText();
-            // Vous pouvez appeler une méthode dans votre agent pour traiter la détection
             cameraSecurityAgent.detectImage(imagePath);
         });
 
@@ -70,7 +61,7 @@ public class CameraSecurityContainer extends Application {
         inputBox.setSpacing(10);
         inputBox.setPadding(new Insets(10));
 
-        VBox vBox = new VBox(inputBox, imageView, listView);
+        VBox vBox = new VBox(inputBox, imageView);
         vBox.setSpacing(10);
         vBox.setPadding(new Insets(10));
 
@@ -78,25 +69,28 @@ public class CameraSecurityContainer extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void processMessage(String imagePath) {
+        showImage(imagePath);
+        // Vous pouvez ajouter d'autres opérations nécessaires ici
+    }
+
     public void startContainer() {
         Runtime rt = Runtime.instance();
         Profile p1 = new ProfileImpl();
         AgentContainer agentContainer = rt.createAgentContainer(p1);
-
-        // Initialisez l'agentContainer avant de l'utiliser
-        this.agentContainer = agentContainer;
-
-        if (agentContainer != null) {
+        try {
+            AgentController agentController = agentContainer.createNewAgent(
+                    "CameraSecurity", "ma.ilisi.smarthome.platform1.agents.CameraSecurityAgent", new Object[]{this}
+            );
             try {
-                AgentController agentController = agentContainer.createNewAgent(
-                        "CameraSecurity", "ma.ilisi.smarthome.platform1.agents.CameraSecurity", new Object[]{this}
-                );
                 agentController.start();
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.print("Error:" + e.getMessage());
             }
-        } else {
-            System.err.println("AgentContainer is null. Make sure it is initialized properly.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -110,15 +104,14 @@ public class CameraSecurityContainer extends Application {
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
             imagePathField.setText(selectedFile.getAbsolutePath());
-            Image image = new Image(selectedFile.toURI().toString());
-            // Utilisez la référence imageView existante
-            imageView.setImage(image);
+            showImage(selectedFile.getAbsolutePath());
         }
     }
 
-    public void showMessage(String msg) {
+    public void showImage(String imagePath) {
         Platform.runLater(() -> {
-            observableList.add(msg);
+            Image image = new Image(new File(imagePath).toURI().toString());
+            imageView.setImage(image);
         });
     }
 }
