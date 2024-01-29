@@ -31,7 +31,7 @@ public class SmartHomeAgent extends GuiAgent {
         }
         // Add behaviors
         // Register the shutter service in the yellowpages
-        addBehaviour(new PublishServiceBehaviour(this, 1000));
+//        addBehaviour(new PublishServiceBehaviour(this, 10));
         // Receive sensor data and send it to the Decision Agent
         addBehaviour(new DecisionBehaviour());
 

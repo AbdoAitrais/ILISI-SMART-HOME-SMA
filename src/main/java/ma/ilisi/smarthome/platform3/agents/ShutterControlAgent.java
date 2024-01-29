@@ -24,7 +24,7 @@ public class ShutterControlAgent extends GuiAgent {
         System.out.println("ShutterControlAgent " + getAID().getLocalName() + " is ready.");
         // Add behaviors
         // Register the shutter service in the yellowpages
-        addBehaviour(new PublishServiceBehaviour(this, 1000));
+//        addBehaviour(new PublishServiceBehaviour(this, 10));
         // Generate sensor data
         addBehaviour(new SensorDataGenerationBehavior());
     }
@@ -67,30 +67,35 @@ public class ShutterControlAgent extends GuiAgent {
         }
     }
 
-    private AID getSmartHomeAgentAID() {
-        // Retry a few times with a delay
-        DFAgentDescription template = new DFAgentDescription();
-        ServiceDescription sd = new ServiceDescription();
-        sd.setType("smart_home");
-        template.addServices(sd);
-        for (int i = 0; i < 3; i++) {
-            try {
-                DFAgentDescription[] result = DFService.search(this, template);
-                if (result.length > 0) {
-                    return result[0].getName();
-                }
-            } catch (FIPAException e) {
-                e.printStackTrace();
-            }
+//    private AID getSmartHomeAgentAID() {
+//        // Retry a few times with a delay
+//        DFAgentDescription template = new DFAgentDescription();
+//        ServiceDescription sd = new ServiceDescription();
+//        sd.setType("smart_home");
+//        template.addServices(sd);
+//        for (int i = 0; i < 3; i++) {
+//            try {
+//                DFAgentDescription[] result = DFService.search(this, template);
+//                if (result.length > 0) {
+//                    return result[0].getName();
+//                }
+//            } catch (FIPAException e) {
+//                e.printStackTrace();
+//            }
+//
+//            // Delay before retry
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException ex) {
+//                ex.printStackTrace();
+//            }
+//        }
+//        return null;
+//    }
 
-            // Delay before retry
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return null;
+    private AID getSmartHomeAgentAID() {
+        // get smart home agent AID from nickname smart_home
+        return new AID("smart_home", AID.ISLOCALNAME);
     }
 
 
