@@ -16,4 +16,6 @@ module ma.ilisi.smarthome {
     exports ma.ilisi.smarthome.platform3.agents;
     exports ma.ilisi.smarthome.platform2.containers;
     exports ma.ilisi.smarthome.platform2.agents;
+    exports ma.ilisi.smarthome.platform1.agents;
+    exports ma.ilisi.smarthome.platform1.containers;
 }

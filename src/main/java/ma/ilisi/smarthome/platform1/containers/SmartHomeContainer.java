@@ -1,4 +1,4 @@
-package ma.ilisi.smarthome.platform3.containers;
+package ma.ilisi.smarthome.platform1.containers;
 
 import jade.core.Profile;
 import jade.core.ProfileImpl;
@@ -15,7 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import ma.ilisi.smarthome.platform3.agents.SmartHomeAgent;
+import ma.ilisi.smarthome.platform1.agents.SmartHomeAgent;
 
 public class SmartHomeContainer extends Application {
     public SmartHomeAgent smartHomeAgent;
@@ -52,7 +52,7 @@ public class SmartHomeContainer extends Application {
         try {
             // Create agents and perform other actions with the agentContainer
             AgentController agentController= agentContainer.createNewAgent(
-                    "smart_home","ma.ilisi.smarthome.platform3.agents.SmartHomeAgent", new Object[]{this}
+                    "smart_home","ma.ilisi.smarthome.platform1.agents.SmartHomeAgent", new Object[]{this}
             );
             agentController.start();
         } catch (Exception e) {
