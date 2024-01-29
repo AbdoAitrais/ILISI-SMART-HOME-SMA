@@ -21,7 +21,7 @@ public class ShutterControlAgent extends GuiAgent {
     protected void setup() {
         shutterControlContainer=(ShutterControlContainer)getArguments()[0];
         shutterControlContainer.shutterControlAgent = this;
-        System.out.println("ShutterControlAgent " + getAID().getLocalName() + " is ready.");
+        System.out.println("HvacAgent " + getAID().getLocalName() + " is ready.");
         // Add behaviors
         // Register the shutter service in the yellowpages
 //        addBehaviour(new PublishServiceBehaviour(this, 10));
@@ -52,7 +52,7 @@ public class ShutterControlAgent extends GuiAgent {
             ACLMessage msg = receive();
             if (msg != null) {
                 // Process received messages
-                System.out.println("ShutterControlAgent received message: " + msg.getContent() + " from " + msg.getSender().getLocalName());
+                System.out.println("HvacAgent received message: " + msg.getContent() + " from " + msg.getSender().getLocalName());
                 // receive predicted position from the smart home agent and show it in the GUI
                 shutterControlContainer.showMessage("Predicted position: " + msg.getContent());
 
@@ -61,10 +61,6 @@ public class ShutterControlAgent extends GuiAgent {
             }
         }
 
-        private double simulateSensorReading() {
-            // Simulate sensor reading logic (replace with actual sensor logic)
-            return Math.random() * 100;
-        }
     }
 
 //    private AID getSmartHomeAgentAID() {

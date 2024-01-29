@@ -17,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ma.ilisi.smarthome.platform3.agents.ShutterControlAgent;
@@ -48,7 +47,7 @@ public class ShutterControlContainer extends Application {
 
         ListView<String> listView = new ListView<>(observableList);
 
-        HBox inputBox = new HBox();
+        VBox inputBox = new VBox();
         inputBox.setSpacing(10);
         inputBox.setPadding(new Insets(10));
         VBox vbox = new VBox();
@@ -64,7 +63,7 @@ public class ShutterControlContainer extends Application {
             String lightIntensity = lightIntensityField.getText();
             String temperature = temperatureField.getText();
 
-            // You can use lightIntensity and temperature in your ShutterControlAgent logic
+            // You can use lightIntensity and temperature in your HvacAgent logic
 
             GuiEvent event = new GuiEvent(evt, 1);
             event.addParameter(lightIntensity);

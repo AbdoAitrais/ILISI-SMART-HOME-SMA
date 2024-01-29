@@ -1,6 +1,5 @@
 package ma.ilisi.smarthome.platform3.containers;
 
-import ma.ilisi.smarthome.platform3.agents.SmartHomeAgent;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
@@ -16,6 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import ma.ilisi.smarthome.platform3.agents.SmartHomeAgent;
 
 public class SmartHomeContainer extends Application {
     public SmartHomeAgent smartHomeAgent;
